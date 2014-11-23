@@ -11,6 +11,8 @@ class Maker
 	property :id, Serial
 	property :email, String, :unique => true, :message =>"This email is taken"
 	property :password_digest, Text
+	property :password_token, Text
+	property :password_token_time_stamp, Time 
 
 	def password=(password)
 		@password = password 

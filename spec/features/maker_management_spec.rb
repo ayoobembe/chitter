@@ -60,6 +60,32 @@ feature "Maker signs out" do
 	end
 end
 
+feature "Maker needs to recover lost password" do 
+
+	before(:each) do 
+		Maker.create(:email => 'careless@test.com',
+								:password => 'forgetful',
+								:password_confirmation => 'forgetful')
+	end
+
+	scenario "while trying to sign in" do 
+		visit "/sessions/new" 
+		expect(page).to have_content("Forgot password?")
+		click_button('Recover password')
+		expect(page).to have_content("Please fill in your email address:")
+	end
+
+	scenario "after filling in email" do 
+		fill_recovery_form('careless@test.com')
+		expect(page).to have_content("Hello careless@test.com, please check your inbox")
+	end
+end
+
+
+
+
+
+
 def sign_up(email = "neo@theMatrix.com",
 						password = "MeIsDaOne!",
 						password_confirmation="MeIsDaOne!")
@@ -77,3 +103,11 @@ def sign_in(email, password)
 	fill_in :password, :with => password 
 	click_button 'Sign in'
 end
+
+def fill_recovery_form(email)
+			visit "/password"
+			fill_in :email, :with => email
+			click_button 'Recover'
+end
+
+

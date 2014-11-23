@@ -67,6 +67,20 @@ delete '/sessions' do
 	session.delete(:maker_id)
 	erb :"sessions/new"
 end
+
+get '/password' do 
+	erb :"makers/password_recovery"
+end
+
+post '/password' do 
+	@maker = Maker.first(:email => params[:email])
+	token = @maker.password_token = (1..64).map{('A'..'Z').to_a.sample}.join
+	time_stamp = @maker.password_token_time_stamp = Time.now
+	@maker.save 
+	# puts token 
+	# puts time_stamp 
+	erb :"makers/password_recovery"
+end
  
 
  
