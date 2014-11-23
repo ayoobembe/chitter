@@ -46,6 +46,20 @@ feature "Maker signs in" do
 	end
 end
 
+feature "Maker signs out" do 
+	before(:each) do 
+		Maker.create(:email => 'test@test.com',
+								:password => 'test',
+								:password_confirmation => 'test' )
+	end
+
+	scenario "while being signed in" do 
+		sign_in('test@test.com','test')
+		click_button'Sign out'
+		expect(page).not_to have_content("Welcome, test@test.com")
+	end
+end
+
 def sign_up(email = "neo@theMatrix.com",
 						password = "MeIsDaOne!",
 						password_confirmation="MeIsDaOne!")

@@ -7,7 +7,7 @@ require './lib/data_mapper_setup'
 # class Chitter < Sinatra::Base
 set :views, Proc.new{File.join(root,'..','views')}
 use Rack::Flash
-
+use Rack::MethodOverride
 enable :sessions
 set :session_secret, 'super secret'
 
@@ -61,6 +61,11 @@ post '/sessions' do
 		flash[:errors] = ['The email of password is incorrect']
 		erb :"/sessions/new"
 	end
+end
+
+delete '/sessions' do 
+	session.delete(:maker_id)
+	erb :"sessions/new"
 end
  
 
