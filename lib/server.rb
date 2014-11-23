@@ -2,6 +2,7 @@ require 'sinatra/base'
 require 'data_mapper'
 require 'sinatra'
 require 'rack-flash'
+require './lib/data_mapper_setup'
 
 # class Chitter < Sinatra::Base
 set :views, Proc.new{File.join(root,'..','views')}
@@ -46,6 +47,21 @@ post '/makers' do
 	end
 end
 
+get '/sessions/new' do 
+	erb :"/sessions/new"
+end
+
+post '/sessions' do 
+	email, password = params[:email], params[:password]
+	maker = Maker.authenticate(email, password)
+	if maker 
+		session[:maker_id] = maker.id
+		redirect to('/')
+	else
+		flash[:errors] = ['The email of password is incorrect']
+		erb :"/sessions/new"
+	end
+end
  
 
  
