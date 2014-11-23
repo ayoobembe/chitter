@@ -38,7 +38,8 @@ end
 
 post '/makers' do 
 	@maker = Maker.create(:email => params[:email],
-							:password => params[:password])
+							:password => params[:password],
+							:password_confirmation => params[:password_confirmation])
 	# p @maker 
 	session[:maker_id] = @maker.id
 	# p session 
