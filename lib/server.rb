@@ -3,7 +3,7 @@ require 'data_mapper'
 require 'sinatra'
 require 'rack-flash'
 
-class Chitter < Sinatra::Base
+# class Chitter < Sinatra::Base
 set :views, Proc.new{File.join(root,'..','views')}
 env = ENV['RACK_ENV'] || 'development'
 DataMapper.setup(:default, "postgres://localhost/chitter_#{env}")
@@ -56,5 +56,5 @@ end
  
 
  
-  run! if app_file == $0
-end
+  # run! if app_file == $0
+# end
