@@ -13,7 +13,13 @@ feature "Maker signs up" do
 									'MeIsDaOne!',
 									'TrinityDaOne!')}.to change(Maker, :count).by(0)
 		expect(current_path).to eq('/makers')
-		expect(page).to have_content("Sorry, your passwords don't match")
+		expect(page).to have_content("Password does not match the confirmation")
+	end
+
+	scenario "with an email that is already registered" do 
+		expect{sign_up}.to change(Maker, :count).by(1)
+		expect{sign_up}.to change(Maker, :count).by(0)
+		expect(page).to have_content("This email is taken")
 	end
 
 end

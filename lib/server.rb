@@ -48,7 +48,7 @@ post '/makers' do
 		session[:maker_id] = @maker.id
 		redirect to('/')
 	else 
-		flash[:notice] = "Sorry, your passwords don't match"
+		flash.now[:errors] = @maker.errors.full_messages
 		erb :"makers/new"
 	end
 end
@@ -56,5 +56,5 @@ end
  
 
  
-  # run! if app_file == $0
+#   run! if app_file == $0
 # end
