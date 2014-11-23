@@ -1,0 +1,7 @@
+<% if @peeps %>
+	<ul>
+		<% @peeps.each do |peep| %>
+			<%=peep.text%>
+			<% end %>
+	</ul>
+<% end %>
