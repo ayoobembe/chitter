@@ -12,6 +12,8 @@ feature "Maker signs up" do
 		expect{sign_up('neo@matrix.com',
 									'MeIsDaOne!',
 									'TrinityDaOne!')}.to change(Maker, :count).by(0)
+		expect(current_path).to eq('/makers')
+		expect(page).to have_content("Sorry, your passwords don't match")
 	end
 
 end
